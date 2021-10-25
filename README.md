@@ -4,7 +4,7 @@ I struggled to find any comprehensive solutions on the Home Assistant forums for
 
 This script fades the volume of a `target_player` media player, starting at it's current `volume_level`, to a user-defined `target_volume` over the user-defined `duration` in seconds. It also applies one of three `curve` algorithms to shape fade, defaulting to `logarithmic`, which is often considered the most natural sounding fade.
 
-For those interested, the script is fully commented, and I've put together a quick explaination of the script's working below.
+For those interested, the script is fully commented, and I've put together a quick explanation of the script's working below.
 
 ## Input Parameters
 - **target_player**: media_player entity
