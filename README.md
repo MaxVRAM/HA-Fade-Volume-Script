@@ -29,7 +29,7 @@ Where `x` is the normalised time value based on the `duration`, starting at `0` 
 - (blue) Bezier: `f(x) = x / (1 + (1 - x ))`
 - (green) Logarithmic: `f(x) = x * x * (3 - 2x)`
 
-<img src="https://bs.chrisvik.com/uploads/images/gallery/2021-10/scaled-1680-/fade-curves.png" alt="drawing" width="300"/>
+<img src="fade_curves.png" alt="drawing" width="300"/>
 
 
 ## Script code
