@@ -1,6 +1,6 @@
 # Fade Media Player Volume
 
-I struggled to find any comprehensive solutions on the Home Assistant forums for fading media player volumes with common attenuation curves, so put this script together.
+I struggled to find any comprehensive solutions on the Home Assistant forums for fading media player volumes with common attenuation curves. I really don't like abrupt changes to audio volume, so I put this script together.
 
 This script fades the volume of a `target_player` media player, starting at it's current `volume_level`, to a user-defined `target_volume` over the user-defined `duration` in seconds. It also applies one of three `curve` algorithms to shape fade, defaulting to `logarithmic`, which is often considered the most natural sounding fade.
 
