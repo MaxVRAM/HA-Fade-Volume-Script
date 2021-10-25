@@ -6,6 +6,12 @@ This script fades the volume of a `target_player` media player, starting at it's
 
 For those interested, the script is fully commented, and I've put together a quick explaination of the script's working below.
 
+## Input Parameters
+- **target_player**: media_player entity
+- **target_volume**: float 0 - 1 --- volume to end at
+- **duration**: float 0.1 - 60 --- duration of fade in seconds 
+- **curve**: selector [logarithmic, bezier, linear]
+
 ## Timing Limitation
 From what I could gather, Home Assistant calls its services on a 1 second clock. I don't know the details, however it's clear that sub-second delay calls aren't timed perfectly. So don't expect the fade duration to be perfect. The larger the duration, the more noticeable the duration discrepancy will be.
 
