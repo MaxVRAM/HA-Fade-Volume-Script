@@ -1,8 +1,8 @@
-# Fade Media Player Volume
-
-I struggled to find any comprehensive solutions on the Home Assistant forums for fading media player volumes with common attenuation curves. I really don't like abrupt changes to audio volume, so I put this script together.
+# Home Assistant Media Player Volume Fade
 
 This script fades the volume of a `target_player` media player, starting at it's current `volume_level`, to a user-defined `target_volume` over the user-defined `duration` in seconds. It also applies one of three `curve` algorithms to shape fade, defaulting to `logarithmic`, which is often considered the most natural sounding fade.
+
+I struggled to find any comprehensive solutions on the Home Assistant forums for fading media player volumes with common attenuation curves. I really don't like abrupt changes to audio volume, so I put this script together.
 
 For those interested, the script is fully commented, and I've put together a quick explanation of the script's working below.
 
@@ -12,16 +12,18 @@ For those interested, the script is fully commented, and I've put together a qui
 - **duration**: float 0.1 - 60 --- duration of fade in seconds 
 - **curve**: selector [logarithmic, bezier, linear]
 
-## Timing Limitation
-From what I could gather, Home Assistant calls its services on a 1 second clock. I don't know the details, however it's clear that sub-second delay calls aren't timed perfectly. So don't expect the fade duration to be perfect. The larger the duration, the more noticeable the duration discrepancy will be.
-
-To make this script duration-accurate, instead of defining `total_steps`, a `steps_left` value could be used, defined by the script's `start_time`, `end_time` (which would be fixed), and the `current_time` for each iteration of the loop. The repeat condition could then use a pre-defined end-time, with the fade steps increasing or decreasing depending on if the calls are lagging or ahead..... but I've already spent way too much time on this, so be my guest :)
-
 ## Working
 
 The script works first calculating the number of `total_steps` required to fade based on the user-defined `duration` multiplied by a hard-coded `step_duration` of `100ms` (or 10 per second). For example, a duration of 5 seconds equates to 500 steps.
 
-It determines the difference between the media player's current volume and the user-defined `target_volume`. It applies this value as a factor to the shaped fade amount, adds it to the original volume, and applies it to the media player entity `volume_level` for each step in a `while` loop.
+It determines the difference between the media player's current volume and the user-defined `target_volume`. It applies the difference value as a factor to the shaped fade amount, adds it to the original volume, then pushes the new volume to the media player entity `volume_level` for each step in a `while` loop.
+
+## Timing Limitation
+From what I could gather, Home Assistant calls its services on a 1 second clock. I don't know the details, however it's clear that sub-second delay calls aren't timed perfectly.
+
+Issue: The lack of ms-accurate timing of Home Assistant's delay calls might cause slight discrepancies to fade durations. The larger the duration, the more noticeable this might become.
+
+To make this script duration-accurate, instead of defining `total_steps`, a `steps_left` value could be used, defined by the script's `start_time`, `end_time` (which would be fixed), and the `current_time` for each iteration of the loop. The repeat condition could then use a pre-defined end-time, with the fade steps increasing or decreasing depending on if the calls are lagging or ahead..... but I've already spent way too much time on this, so be my guest :)
 
 ## Algorithms:
 Where `x` is the normalised time value based on the `duration`, starting at `0` and ending at `1`.
