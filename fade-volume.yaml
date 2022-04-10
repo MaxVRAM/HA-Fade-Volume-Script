@@ -31,9 +31,6 @@ fade_volume:
       example: '5'
       selector:
         number:
-          max: 60
-          min: 0.1
-          step: 0.1
           mode: box
           unit_of_measurement: "s"
     curve:
